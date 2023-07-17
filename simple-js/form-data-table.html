@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* CSS to make form attractice and verticle */
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            margin: 0 auto;
+        }
+        /* Make the form inputs and button look nice */
+        input, button{
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        /* Make table as attractive as submit form */
+        table{
+            width: 50%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        /* Attractive css for table rows highlight on hover */
+        tr:hover{
+            background-color: #ccc;
+        }
+
+        /* Table cells attractive */
+        td{
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        
+    </style>
+</head>
+<body>
+    <form id="submitForm">
+        <input type="text" name="name" id="name" value="sagar"/>
+        <input type="text" name="email" id="email" value="sagar@gmail.com"/>
+        <input type="text" name="password" id="password" value="123123"/>
+        <button type="submit">Submit</button>
+    </form>
+    <!-- Table to bind the data collected from the submitForm -->
+    <table id="table" class="datatable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+    <script>
+       // Collect the form data and bind it to the table
+         document.getElementById('submitForm').addEventListener('submit', function(e){
+              e.preventDefault();
+              let name = document.getElementById('name').value;
+              let email = document.getElementById('email').value;
+              let password = document.getElementById('password').value;
+              let tableBody = document.getElementById('tableBody');
+              let tableRow = document.createElement('tr');
+              let tableDataName = document.createElement('td');
+              let tableDataEmail = document.createElement('td');
+              let tableDataPassword = document.createElement('td');
+              // Add one more element having a delete button
+                let tableDataActions = document.createElement('td');
+                let deleteButton = document.createElement('button');
+                deleteButton.innerHTML = 'Delete';
+                deleteButton.style.padding = '10px';
+                deleteButton.style.margin = '10px 0';
+                deleteButton.style.borderRadius = '5px';
+                deleteButton.style.border = '1px solid #ccc';
+                deleteButton.addEventListener('click', function(){
+                    tableRow.remove();
+                });
+                tableDataActions.appendChild(deleteButton);
+                
+
+              tableDataName.innerHTML = name;
+              tableDataEmail.innerHTML = email;
+              tableDataPassword.innerHTML = password;
+              tableRow.appendChild(tableDataName);
+              tableRow.appendChild(tableDataEmail);
+              tableRow.appendChild(tableDataPassword);
+              tableBody.appendChild(tableRow);
+              tableRow.appendChild(tableDataActions);
+        });
+
+        // onclick of a row show the entire row data in a custom popup not in alert box
+        document.getElementById('table').addEventListener('click', function(e){
+            let target = e.target;
+            let tableRow = target.parentElement;
+            let tableData = tableRow.children;
+            let name = tableData[0].innerHTML;
+            let email = tableData[1].innerHTML;
+            let password = tableData[2].innerHTML;
+            let popup = document.createElement('div');
+            popup.style.position = 'fixed';
+            popup.style.top = '0';
+            popup.style.left = '0';
+            popup.style.width = '100%';
+            popup.style.height = '100%';
+            popup.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            popup.style.display = 'flex';
+            popup.style.justifyContent = 'center';
+            popup.style.alignItems = 'center';
+            popup.style.zIndex = '999';
+            let popupContent = document.createElement('div');
+            popupContent.style.width = '50%';
+            popupContent.style.height = '50%';
+            popupContent.style.backgroundColor = '#fff';
+            popupContent.style.padding = '20px';
+            popupContent.style.borderRadius = '5px';
+            popupContent.style.display = 'flex';
+            popupContent.style.flexDirection = 'column';
+            popupContent.style.justifyContent = 'center';
+            popupContent.style.alignItems = 'center';
+            let popupName = document.createElement('p');
+            popupName.innerHTML = name;
+            let popupEmail = document.createElement('p');
+            popupEmail.innerHTML = email;
+            let popupPassword = document.createElement('p');
+            popupPassword.innerHTML = password;
+            let popupClose = document.createElement('button');
+            popupClose.innerHTML = 'Close';
+            popupClose.style.padding = '10px';
+            popupClose.style.margin = '10px 0';
+            popupClose.style.borderRadius = '5px';
+            popupClose.style.border = '1px solid #ccc';
+            popupClose.addEventListener('click', function(){
+                popup.remove();
+            });
+            popupContent.appendChild(popupName);
+            popupContent.appendChild(popupEmail);
+            popupContent.appendChild(popupPassword);
+            popupContent.appendChild(popupClose);
+            popup.appendChild(popupContent);
+            document.body.appendChild(popup);
+        });
+        
+    </script>
+</body>
+</html>

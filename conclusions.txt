@@ -1,0 +1,17 @@
+How github copilot works?
+- Reads the comment and generate logic
+- Remembers the previously generated logic in the same file and uses that information to generate new code.
+- Generate Markup as well
+- Generate javascript logic according to the UI elements
+    - E.g. If we create a form and a table we can simply write a comment in javascript that "Collect the form data and bind to the table"
+
+Issues detected
+- Sometime it generates same lines again and again
+
+Tests with copilot
+- Simple javascript
+    - Multimedia
+        - Video Player and its controls
+        - Custom video Player
+    - Data
+        - Form and Table Crud

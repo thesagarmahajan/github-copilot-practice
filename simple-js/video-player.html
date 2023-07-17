@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Create a video player to play sample_video.mp4 -->
+    <!-- Hide the default controls of player -->
+    <video id="video" width="320" height="240" >
+        <source src="sample_video.mp4" type="video/mp4">
+    </video>
+    <!-- Create custom controls with play, pause button and progressbar -->
+    <div id="controls">
+        <button id="play">Play</button>
+        <button id="pause">Pause</button>
+        <input type="range" id="progress" min="0" max="100" value="0">
+    </div>
+    <!-- css for video player and custom controls to make it look like youtube video player -->
+    <style>
+        #video{
+            width: 100%;
+        }
+        #controls{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #play, #pause{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background-color: #ccc;
+            margin: 0 10px;
+        }
+        #play svg, #pause svg{
+            width: 100%;
+            height: 100%;
+        }
+        #progress{
+            width: 100%;
+        }  
+    </style>
+
+    
+    <!-- Javascript to add svg icons on play & pause button and make the custom controls work -->
+    <script>
+        // Get the video element
+        const video = document.getElementById('video');
+        // Get the play button
+        const playBtn = document.getElementById('play');
+        // Get the pause button
+        const pauseBtn = document.getElementById('pause');
+        // Get the progress bar
+        const progress = document.getElementById('progress');
+        // Add event listener to play button
+        playBtn.addEventListener('click', function(){
+            // Play the video
+            video.play();
+        });
+        // Add event listener to pause button
+        pauseBtn.addEventListener('click', function(){
+            // Pause the video
+            video.pause();
+        });
+        // Add event listener to progress bar
+        progress.addEventListener('change', function(){
+            // Get the value of progress bar
+            const value = progress.value;
+            // Get the duration of video
+            const duration = video.duration;
+            // Set the current time of video
+            video.currentTime = (value * duration) / 100;
+        });
+        // Add event listener to video element
+        video.addEventListener('timeupdate', function(){
+            // Get the current time of video
+            const currentTime = video.currentTime;
+            // Get the duration of video
+            const duration = video.duration;
+            // Calculate the progress value
+            const progressValue = (currentTime / duration) * 100;
+            // Set the progress value
+            progress.value = progressValue;
+        });
+    </script>
+</body>
+</html>
